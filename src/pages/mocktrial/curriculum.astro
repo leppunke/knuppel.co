@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+const sessions = [
+  {
+    num: "01",
+    title: "Kick-Off",
+    desc: "Program goals, expectations, and case file distribution. Students form teams, receive their roles, and get oriented to the case materials.",
+  },
+  {
+    num: "02",
+    title: "Case Analysis",
+    desc: "How to dissect a case file and organize its parts. Students learn to identify key facts, legal elements, and build a theory of the case from raw materials.",
+  },
+  {
+    num: "03",
+    title: "Opening Statements",
+    desc: "Structure, purpose, and what makes one persuasive. Students draft and deliver their first opening statements with peer feedback.",
+  },
+  {
+    num: "04",
+    title: "Direct Examination",
+    desc: "Drawing out testimony through strategic questioning. Students learn to prepare witnesses and develop testimony that supports their theory.",
+  },
+  {
+    num: "05",
+    title: "Cross-Examination",
+    desc: "Challenging witnesses and controlling the narrative. Students practice the art of leading questions and impeachment.",
+  },
+  {
+    num: "06",
+    title: "Closing Arguments",
+    desc: "Weaving facts and testimony into a compelling final pitch. Students learn to tie evidence to legal standards and deliver a persuasive conclusion.",
+  },
+  {
+    num: "07",
+    title: "Evidence & Objections",
+    desc: "Rules of evidence appropriately scaled for high school competition. Students learn foundational objections, how to lay a foundation for exhibits, and courtroom procedure.",
+  },
+  {
+    num: "08",
+    title: "Competition",
+    desc: "Local invitational against Bay Area schools. Students put everything together in a live competitive round with real judges and scoring.",
+  },
+]
+---
+
+<Layout title="Curriculum — Urban School Mock Trial" description="Session-by-session breakdown of the Urban School Mock Trial program.">
+  <section class="max-w-3xl mx-auto px-6 py-16">
+    <p class="text-xs font-semibold uppercase tracking-[3px] text-earth mb-4">
+      <a href="/mocktrial" class="hover:text-ink transition-colors">&larr; Mock Trial</a>
+    </p>
+    <h1 class="font-heading text-4xl font-black mb-4">Session-by-Session Curriculum</h1>
+    <p class="text-lg text-ink-light mb-12">
+      Eight sessions from case analysis through live competition. Each session builds on the last — by the end, students are running a full trial.
+    </p>
+
+    <div class="space-y-6">
+      {sessions.map((s) => (
+        <div class="flex gap-5 items-start">
+          <span class="flex-shrink-0 w-10 h-10 rounded-full bg-cream-dark flex items-center justify-center text-sm font-bold text-earth">
+            {s.num}
+          </span>
+          <div>
+            <h3 class="font-bold text-ink mb-1">{s.title}</h3>
+            <p class="text-sm text-ink-light leading-relaxed">{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-14 bg-dark text-cream rounded-xl p-8">
+      <h2 class="font-heading text-xl font-bold text-gold mb-4">Competition Track</h2>
+      <div class="text-sm text-earth-light leading-relaxed space-y-2">
+        <p><strong class="text-cream">Fall:</strong> Case prep through sessions 1–7, culminating in a local invitational (~November).</p>
+        <p><strong class="text-cream">Winter:</strong> Continued practice, scrimmages, and SF County Mock Trial competition (January–February).</p>
+        <p><strong class="text-cream">Spring (TBD):</strong> Second case &amp; competition opportunity — potentially appellate advocacy track.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href="/mocktrial/parents" class="text-sm font-semibold text-warm hover:text-ink transition-colors underline underline-offset-2">
+        Parent Information &rarr;
+      </a>
+    </div>
+  </section>
+</Layout>

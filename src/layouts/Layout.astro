@@ -1,0 +1,46 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = "Erik Knuppel — ops leader, former lawyer, teacher, builder." } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-cream text-ink font-body antialiased">
+    <nav class="border-b border-cream-dark">
+      <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" class="font-heading text-xl font-bold text-ink hover:text-warm transition-colors">
+          Erik Knuppel
+        </a>
+        <div class="flex gap-6 text-sm font-medium text-ink-light">
+          <a href="/mocktrial" class="hover:text-ink transition-colors">Mock Trial</a>
+          <a href="https://www.linkedin.com/in/erikknuppel/" target="_blank" rel="noopener" class="hover:text-ink transition-colors">LinkedIn</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="border-t border-cream-dark mt-20">
+      <div class="max-w-4xl mx-auto px-6 py-8 text-center text-sm text-earth-light">
+        &copy; {new Date().getFullYear()} Erik Knuppel
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+
+const resources = [
+  {
+    category: "Case Materials",
+    items: [
+      { title: "Case File (Full)", note: "Coming soon" },
+      { title: "Witness Statements", note: "Coming soon" },
+      { title: "Exhibits", note: "Coming soon" },
+    ],
+  },
+  {
+    category: "Session Handouts",
+    items: [
+      { title: "Session 1 — Kick-Off Guide", note: "Coming soon" },
+      { title: "Session 2 — Case Analysis Worksheet", note: "Coming soon" },
+      { title: "Session 3 — Opening Statement Framework", note: "Coming soon" },
+      { title: "Session 4 — Direct Examination Guide", note: "Coming soon" },
+      { title: "Session 5 — Cross-Examination Guide", note: "Coming soon" },
+      { title: "Session 6 — Closing Argument Framework", note: "Coming soon" },
+      { title: "Session 7 — Evidence & Objections Cheat Sheet", note: "Coming soon" },
+    ],
+  },
+  {
+    category: "Competition Prep",
+    items: [
+      { title: "Rules of Competition", note: "Coming soon" },
+      { title: "Scoring Rubric", note: "Coming soon" },
+      { title: "Practice Schedule", note: "Coming soon" },
+    ],
+  },
+]
+---
+
+<Layout title="Content Library — Urban School Mock Trial" description="Materials and resources for enrolled Urban School Mock Trial students.">
+  <section class="max-w-3xl mx-auto px-6 py-16">
+    <p class="text-xs font-semibold uppercase tracking-[3px] text-earth mb-4">
+      <a href="/mocktrial" class="hover:text-ink transition-colors">&larr; Mock Trial</a>
+    </p>
+    <h1 class="font-heading text-4xl font-black mb-4">Content Library</h1>
+    <p class="text-ink-light mb-2">
+      Materials and resources for enrolled students and parents.
+    </p>
+    <p class="text-sm text-earth bg-cream-dark rounded-lg px-4 py-3 mb-12">
+      This page is protected — only approved email addresses can access it.
+      If you're enrolled and can't access this page, contact Coach Knuppel.
+    </p>
+
+    <div class="space-y-10">
+      {resources.map((section) => (
+        <div>
+          <h2 class="font-heading text-xl font-bold mb-4 pb-2 border-b border-cream-dark">{section.category}</h2>
+          <div class="space-y-3">
+            {section.items.map((item) => (
+              <div class="flex items-center justify-between py-2 px-4 bg-cream-dark rounded-lg">
+                <span class="text-sm font-medium text-ink">{item.title}</span>
+                <span class="text-xs text-earth italic">{item.note}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-14 border border-cream-dark rounded-xl p-6 text-center text-sm text-ink-light">
+      <p>More materials will be added as the program progresses.</p>
+      <p class="mt-1">Videos, practice schedules, and additional resources coming in future updates.</p>
+    </div>
+  </section>
+</Layout>
