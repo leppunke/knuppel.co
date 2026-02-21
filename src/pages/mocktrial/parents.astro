@@ -4,66 +4,67 @@ import Layout from '../../layouts/Layout.astro'
 const skills = [
   {
     title: "Critical Thinking",
-    desc: "Break down complex facts, identify strengths and weaknesses, build a theory of the case from raw materials.",
+    desc: "Break down complex facts, identify strengths and weaknesses, and build a theory of the case from raw materials — the same analytical rigor Urban brings to every classroom.",
   },
   {
     title: "Public Speaking",
-    desc: "Present arguments with confidence and clarity — not debate-style speed, but real persuasion and presence.",
+    desc: "Present arguments with confidence and clarity. Not debate-style speed — real persuasion and presence, the kind that translates to every stage of life.",
   },
   {
     title: "Collaboration",
-    desc: "Every trial is a team effort. Students learn to divide roles, prepare together, and support each other under pressure.",
+    desc: "Every trial is a team effort. Students learn to divide roles, prepare together, and support each other under pressure — building trust across grade levels.",
   },
 ]
 
 const whyItems = [
-  "Builds confidence speaking in high-pressure situations",
-  "Strengthens analytical writing and reasoning skills",
-  "Teaches evidence-based argumentation — a lifelong skill",
+  "Builds confidence speaking in high-pressure, real-world situations",
+  "Strengthens analytical reasoning and evidence-based argumentation",
+  "Teaches students to advocate — first for a position, then for themselves",
   "Strong extracurricular for college applications",
-  "Develops poise, listening, and quick thinking",
+  "Develops poise, listening, and quick thinking under pressure",
   "Fosters teamwork and leadership across grade levels",
 ]
 ---
 
-<Layout title="Parent Info — Urban School Mock Trial" description="What parents need to know about the Urban School Mock Trial program — skills, logistics, and why it matters.">
+<Layout title="Parent Info — Mock Trial at Urban" description="What parents need to know about Mock Trial at Urban — skills developed, logistics, and why it matters.">
   <section class="max-w-3xl mx-auto px-6 py-16">
-    <p class="text-xs font-semibold uppercase tracking-[3px] text-earth mb-4">
-      <a href="/mocktrial" class="hover:text-ink transition-colors">&larr; Mock Trial</a>
+    <p class="text-xs font-semibold uppercase tracking-[3px] text-urban-blue mb-4">
+      <a href="/mocktrial" class="hover:text-ink transition-colors">&larr; Mock Trial at Urban</a>
     </p>
-    <h1 class="font-heading text-4xl font-black mb-2">Mock Trial: <em class="text-warm">A New Elective</em></h1>
-    <p class="text-xs font-semibold uppercase tracking-[2px] text-earth mb-6">The Urban School of San Francisco</p>
+    <h1 class="font-heading text-4xl font-black mb-2">Mock Trial: <em class="text-urban-blue">A New Elective</em></h1>
+    <p class="text-xs font-semibold uppercase tracking-[2px] text-urban-blue/60 mb-6">The Urban School of San Francisco — You Period</p>
     <p class="text-lg text-ink-light leading-relaxed mb-12">
       A hands-on program where students learn to analyze evidence, construct arguments,
       and present a case in a simulated courtroom — culminating in real competition
-      against other Bay Area schools.
+      against other Bay Area schools through the SF County Mock Trial program.
     </p>
 
     <!-- Skills -->
-    <h2 class="font-heading text-2xl font-bold mb-6 pb-2 border-b border-cream-dark">What Students Develop</h2>
+    <h2 class="font-heading text-2xl font-bold mb-6 pb-2 border-b border-urban-slate">What Students Develop</h2>
     <div class="grid md:grid-cols-3 gap-4 mb-14">
       {skills.map((s) => (
-        <div class="bg-cream-dark rounded-xl p-5">
-          <h3 class="font-bold text-sm text-warm mb-2">{s.title}</h3>
+        <div class="bg-urban-slate rounded-xl p-5">
+          <h3 class="font-bold text-sm text-urban-blue mb-2">{s.title}</h3>
           <p class="text-sm text-ink-light leading-relaxed">{s.desc}</p>
         </div>
       ))}
     </div>
 
     <!-- Curriculum Link -->
-    <div class="bg-cream-dark rounded-xl p-6 mb-14 text-center">
+    <div class="bg-urban-slate rounded-xl p-6 mb-14 text-center">
       <p class="text-sm text-ink-light mb-3">Want to see exactly what students will do each week?</p>
-      <a href="/mocktrial/curriculum" class="text-sm font-semibold text-warm hover:text-ink transition-colors underline underline-offset-2">
+      <a href="/mocktrial/curriculum" class="text-sm font-semibold text-urban-blue hover:text-ink transition-colors underline underline-offset-2">
         View the full curriculum &rarr;
       </a>
     </div>
 
     <!-- Why Mock Trial -->
-    <div class="bg-ink text-cream rounded-2xl p-8 mb-14">
-      <h2 class="font-heading text-xl font-bold text-gold mb-5">Why Mock Trial Matters</h2>
+    <div class="bg-urban-blue text-white rounded-2xl p-8 mb-14">
+      <h2 class="font-heading text-xl font-bold text-gold mb-5">Why Mock Trial at Urban</h2>
+      <p class="text-sm text-white/60 mb-5">Urban's pillars — voice, agency, and academic challenge — are exactly what mock trial demands. This program puts those values into action in a way few electives can.</p>
       <div class="grid md:grid-cols-2 gap-3">
         {whyItems.map((item) => (
-          <p class="text-sm text-earth-light pl-5 relative before:content-['→'] before:absolute before:left-0 before:text-gold before:font-bold">
+          <p class="text-sm text-white/70 pl-5 relative before:content-['→'] before:absolute before:left-0 before:text-gold before:font-bold">
             {item}
           </p>
         ))}
@@ -71,42 +72,45 @@ const whyItems = [
     </div>
 
     <!-- Logistics -->
-    <h2 class="font-heading text-2xl font-bold mb-6 pb-2 border-b border-cream-dark">Logistics</h2>
+    <h2 class="font-heading text-2xl font-bold mb-6 pb-2 border-b border-urban-slate">Logistics</h2>
     <div class="grid md:grid-cols-2 gap-6 mb-14">
-      <div class="bg-cream-dark rounded-xl p-6">
-        <h3 class="text-xs font-bold uppercase tracking-wider text-earth mb-3">Schedule</h3>
+      <div class="bg-urban-slate rounded-xl p-6">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-urban-blue mb-3">Schedule</h3>
         <div class="text-sm text-ink-light leading-relaxed space-y-1">
-          <p><strong class="text-ink">When:</strong> Tuesdays during You Period</p>
+          <p><strong class="text-ink">When:</strong> Tuesdays — You Period</p>
           <p><strong class="text-ink">Terms:</strong> Fall &amp; Winter trimesters</p>
           <p><strong class="text-ink">Spring:</strong> Second case &amp; competition (TBD)</p>
-          <p><strong class="text-ink">Competition:</strong> Local invitational (~November)</p>
+          <p><strong class="text-ink">Competition:</strong> SF County Mock Trial (Jan–Feb)</p>
         </div>
       </div>
-      <div class="bg-cream-dark rounded-xl p-6">
-        <h3 class="text-xs font-bold uppercase tracking-wider text-earth mb-3">Details</h3>
+      <div class="bg-urban-slate rounded-xl p-6">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-urban-blue mb-3">Details</h3>
         <div class="text-sm text-ink-light leading-relaxed space-y-1">
           <p><strong class="text-ink">Size:</strong> 8–12 students</p>
           <p><strong class="text-ink">Grades:</strong> Sophomores, Juniors &amp; Seniors preferred; Freshmen welcome</p>
-          <p><strong class="text-ink">Experience:</strong> None required</p>
+          <p><strong class="text-ink">Experience:</strong> None required — just curiosity and commitment</p>
         </div>
       </div>
     </div>
 
     <!-- Coach -->
-    <div class="border border-cream-dark rounded-xl p-6 mb-14">
-      <h3 class="text-xs font-bold uppercase tracking-wider text-earth mb-3">Your Coach</h3>
+    <div class="border border-urban-slate rounded-xl p-6 mb-14">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-urban-blue mb-3">Your Coach</h3>
       <p class="text-sm text-ink-light leading-relaxed">
-        <strong class="text-ink">Erik Knuppel</strong> — Former trial and appellate attorney. Adjunct professor of trial advocacy at UC Law San Francisco (2010–present) and Golden Gate University School of Law (2011–2020). 20+ competition teams coached at the national level including ABA National Criminal Justice Trial, TYLA National Trial Competition, and the Bernie Segal Criminal Mock Trial Competition. Founded GavelStats, a mock trial analytics platform licensed to the ABA and law schools nationwide.
+        <strong class="text-ink">Erik Knuppel</strong> — Former trial and appellate attorney. Adjunct professor of trial advocacy at UC Law San Francisco (2010–present) and Golden Gate University School of Law (2011–2020). 20+ competition teams coached at the national level including ABA Nationals and the TYLA National Trial Competition. Founded GavelStats, a mock trial analytics platform licensed to the ABA and law schools nationwide. Parent in the Urban community.
       </p>
     </div>
 
     <!-- Contact -->
-    <div class="bg-ink text-cream rounded-xl p-8 text-center">
+    <div class="bg-urban-blue text-white rounded-xl p-8 text-center">
       <h2 class="font-heading text-xl font-bold text-gold mb-3">Questions?</h2>
-      <p class="text-earth-light mb-4">Contact Skyler Silverman, Dean of Student Activities</p>
-      <a href="mailto:ssilverman@urbanschool.org" class="inline-block bg-gold text-ink font-bold text-sm px-8 py-3 rounded-lg hover:bg-gold-dim transition-colors">
+      <p class="text-white/60 mb-4">Contact Skyler Silverman, Dean of Student Activities</p>
+      <a href="mailto:ssilverman@urbanschool.org" class="inline-block bg-gold text-urban-blue font-bold text-sm px-8 py-3 rounded-lg hover:bg-gold-dim transition-colors">
         ssilverman@urbanschool.org
       </a>
+      <div class="mt-4">
+        <a href="/mocktrial#register" class="text-sm text-gold hover:text-white transition-colors underline underline-offset-2">Register your interest &rarr;</a>
+      </div>
     </div>
   </section>
 </Layout>
