@@ -1,36 +1,5 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
-
-const resources = [
-  {
-    category: "Case Materials",
-    items: [
-      { title: "Case File (Full)", note: "Coming soon" },
-      { title: "Witness Statements", note: "Coming soon" },
-      { title: "Exhibits", note: "Coming soon" },
-    ],
-  },
-  {
-    category: "Session Handouts",
-    items: [
-      { title: "Session 1 — Kick-Off Guide", note: "Coming soon" },
-      { title: "Session 2 — Case Analysis Worksheet", note: "Coming soon" },
-      { title: "Session 3 — Opening Statement Framework", note: "Coming soon" },
-      { title: "Session 4 — Direct Examination Guide", note: "Coming soon" },
-      { title: "Session 5 — Cross-Examination Guide", note: "Coming soon" },
-      { title: "Session 6 — Closing Argument Framework", note: "Coming soon" },
-      { title: "Session 7 — Evidence & Objections Cheat Sheet", note: "Coming soon" },
-    ],
-  },
-  {
-    category: "Competition Prep",
-    items: [
-      { title: "Rules of Competition", note: "Coming soon" },
-      { title: "Scoring Rubric", note: "Coming soon" },
-      { title: "Practice Schedule", note: "Coming soon" },
-    ],
-  },
-]
 ---
 
 <Layout title="Content Library — Urban School Mock Trial" description="Materials and resources for enrolled Urban School Mock Trial students.">
@@ -47,25 +16,260 @@ const resources = [
       If you're enrolled and can't access this page, contact Coach Knuppel.
     </p>
 
-    <div class="space-y-10">
-      {resources.map((section) => (
-        <div>
-          <h2 class="font-heading text-xl font-bold mb-4 pb-2 border-b border-cream-dark">{section.category}</h2>
-          <div class="space-y-3">
-            {section.items.map((item) => (
-              <div class="flex items-center justify-between py-2 px-4 bg-cream-dark rounded-lg">
-                <span class="text-sm font-medium text-ink">{item.title}</span>
-                <span class="text-xs text-earth italic">{item.note}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
+    <!-- Loading state -->
+    <div id="state-loading" class="text-center py-12">
+      <div class="inline-block w-6 h-6 border-2 border-earth-light border-t-urban-blue rounded-full animate-spin"></div>
+      <p class="text-sm text-earth mt-3">Checking access...</p>
     </div>
 
-    <div class="mt-14 border border-cream-dark rounded-xl p-6 text-center text-sm text-ink-light">
-      <p>More materials will be added as the program progresses.</p>
-      <p class="mt-1">Videos, practice schedules, and additional resources coming in future updates.</p>
+    <!-- Gate state -->
+    <div id="state-gate" class="hidden">
+      <div class="border border-cream-dark rounded-xl p-8 text-center">
+        <h2 class="font-heading text-xl font-bold mb-2">Enter your email to access the library</h2>
+        <p class="text-sm text-ink-light mb-6">Use the email address you registered with.</p>
+        <form id="gate-form" class="max-w-sm mx-auto">
+          <input
+            type="email"
+            id="gate-email"
+            placeholder="you@example.com"
+            required
+            class="w-full px-4 py-3 border border-cream-dark rounded-lg text-sm bg-white focus:outline-none focus:border-urban-blue focus:ring-1 focus:ring-urban-blue"
+          />
+          <button
+            type="submit"
+            id="gate-submit"
+            class="w-full mt-3 px-4 py-3 bg-urban-blue text-white text-sm font-semibold rounded-lg hover:bg-urban-blue-light transition-colors"
+          >
+            Access Library
+          </button>
+          <p id="gate-error" class="text-sm text-red-600 mt-3 hidden"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Authorized state -->
+    <div id="state-authorized" class="hidden">
+      <div class="flex items-center justify-between mb-8">
+        <p class="text-sm text-earth">
+          Signed in as <span id="auth-email" class="font-medium text-ink"></span>
+        </p>
+        <button
+          id="sign-out"
+          class="text-xs text-earth hover:text-ink underline transition-colors"
+        >
+          Sign out
+        </button>
+      </div>
+      <div id="resources-container" class="space-y-10"></div>
+      <div class="mt-14 border border-cream-dark rounded-xl p-6 text-center text-sm text-ink-light">
+        <p>More materials will be added as the program progresses.</p>
+        <p class="mt-1">Videos, practice schedules, and additional resources coming in future updates.</p>
+      </div>
+    </div>
+
+    <!-- Request access state -->
+    <div id="state-request" class="hidden">
+      <div class="border border-cream-dark rounded-xl p-8 text-center">
+        <h2 class="font-heading text-xl font-bold mb-2">Request Access</h2>
+        <p class="text-sm text-ink-light mb-6">
+          That email isn't on the access list yet. If you're enrolled in Mock Trial, submit a request and Coach Knuppel will approve it.
+        </p>
+        <form id="request-form" class="max-w-sm mx-auto">
+          <input
+            type="text"
+            id="request-name"
+            placeholder="Your name"
+            required
+            class="w-full px-4 py-3 border border-cream-dark rounded-lg text-sm bg-white focus:outline-none focus:border-urban-blue focus:ring-1 focus:ring-urban-blue"
+          />
+          <input
+            type="email"
+            id="request-email"
+            placeholder="you@example.com"
+            required
+            class="w-full mt-3 px-4 py-3 border border-cream-dark rounded-lg text-sm bg-white focus:outline-none focus:border-urban-blue focus:ring-1 focus:ring-urban-blue"
+          />
+          <button
+            type="submit"
+            id="request-submit"
+            class="w-full mt-3 px-4 py-3 bg-urban-blue text-white text-sm font-semibold rounded-lg hover:bg-urban-blue-light transition-colors"
+          >
+            Request Access
+          </button>
+          <p id="request-error" class="text-sm text-red-600 mt-3 hidden"></p>
+          <p id="request-success" class="text-sm text-green-700 mt-3 hidden"></p>
+        </form>
+        <button
+          id="back-to-gate"
+          class="mt-4 text-xs text-earth hover:text-ink underline transition-colors"
+        >
+          Try a different email
+        </button>
+      </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  const states = {
+    loading: document.getElementById("state-loading")!,
+    gate: document.getElementById("state-gate")!,
+    authorized: document.getElementById("state-authorized")!,
+    request: document.getElementById("state-request")!,
+  };
+
+  function showState(name: keyof typeof states) {
+    Object.entries(states).forEach(([key, el]) => {
+      el.classList.toggle("hidden", key !== name);
+    });
+  }
+
+  function renderResources(resources: { category: string; items: { title: string; url?: string; note?: string }[] }[]) {
+    const container = document.getElementById("resources-container")!;
+    container.innerHTML = "";
+
+    if (!resources.length) {
+      container.innerHTML = `<p class="text-sm text-earth text-center py-8">No resources available yet. Check back soon.</p>`;
+      return;
+    }
+
+    resources.forEach((section) => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <h2 class="font-heading text-xl font-bold mb-4 pb-2 border-b border-cream-dark">${escapeHtml(section.category)}</h2>
+        <div class="space-y-3">
+          ${section.items.map((item) => `
+            <div class="flex items-center justify-between py-2 px-4 bg-cream-dark rounded-lg">
+              ${item.url
+                ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener" class="text-sm font-medium text-urban-blue hover:text-urban-blue-light underline transition-colors">${escapeHtml(item.title)}</a>`
+                : `<span class="text-sm font-medium text-ink">${escapeHtml(item.title)}</span>`
+              }
+              ${item.note ? `<span class="text-xs text-earth italic">${escapeHtml(item.note)}</span>` : ""}
+            </div>
+          `).join("")}
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  function escapeHtml(str: string): string {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  async function verifyEmail(email: string): Promise<{ success: boolean; resources?: any[] }> {
+    const res = await fetch("/api/library-verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    return res.json();
+  }
+
+  // On load: check for stored email
+  async function init() {
+    const stored = localStorage.getItem("library_email");
+    if (stored) {
+      try {
+        const result = await verifyEmail(stored);
+        if (result.success && result.resources) {
+          document.getElementById("auth-email")!.textContent = stored;
+          renderResources(result.resources);
+          showState("authorized");
+          return;
+        }
+      } catch {
+        // fall through to gate
+      }
+      localStorage.removeItem("library_email");
+    }
+    showState("gate");
+  }
+
+  // Gate form submit
+  document.getElementById("gate-form")!.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const emailInput = document.getElementById("gate-email") as HTMLInputElement;
+    const errorEl = document.getElementById("gate-error")!;
+    const submitBtn = document.getElementById("gate-submit") as HTMLButtonElement;
+    const email = emailInput.value.trim().toLowerCase();
+
+    errorEl.classList.add("hidden");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Checking...";
+
+    try {
+      const result = await verifyEmail(email);
+      if (result.success && result.resources) {
+        localStorage.setItem("library_email", email);
+        document.getElementById("auth-email")!.textContent = email;
+        renderResources(result.resources);
+        showState("authorized");
+      } else {
+        // Not on allowlist — show request form pre-filled
+        (document.getElementById("request-email") as HTMLInputElement).value = email;
+        showState("request");
+      }
+    } catch {
+      errorEl.textContent = "Something went wrong. Please try again.";
+      errorEl.classList.remove("hidden");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Access Library";
+    }
+  });
+
+  // Request access form submit
+  document.getElementById("request-form")!.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const nameInput = document.getElementById("request-name") as HTMLInputElement;
+    const emailInput = document.getElementById("request-email") as HTMLInputElement;
+    const errorEl = document.getElementById("request-error")!;
+    const successEl = document.getElementById("request-success")!;
+    const submitBtn = document.getElementById("request-submit") as HTMLButtonElement;
+
+    errorEl.classList.add("hidden");
+    successEl.classList.add("hidden");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    try {
+      const res = await fetch("/api/library-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: nameInput.value.trim(), email: emailInput.value.trim().toLowerCase() }),
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        successEl.textContent = result.message;
+        successEl.classList.remove("hidden");
+        submitBtn.classList.add("hidden");
+      } else {
+        errorEl.textContent = result.error || "Something went wrong.";
+        errorEl.classList.remove("hidden");
+      }
+    } catch {
+      errorEl.textContent = "Something went wrong. Please try again.";
+      errorEl.classList.remove("hidden");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Request Access";
+    }
+  });
+
+  // Sign out
+  document.getElementById("sign-out")!.addEventListener("click", () => {
+    localStorage.removeItem("library_email");
+    showState("gate");
+  });
+
+  // Back to gate from request
+  document.getElementById("back-to-gate")!.addEventListener("click", () => {
+    showState("gate");
+  });
+
+  init();
+</script>
