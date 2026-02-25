@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Login — Erik Knuppel" description="Login to access the Studio.">
+  <section class="max-w-sm mx-auto px-6 py-20">
+    <h1 class="font-heading text-3xl font-black leading-tight mb-2">
+      Studio Login
+    </h1>
+    <p class="text-sm text-ink-light mb-8">
+      Enter your password to access the Studio.
+    </p>
+
+    <form id="login-form" class="space-y-4" autocomplete="on" action="/api/login" method="POST">
+      <!-- Hidden username field for password managers -->
+      <input type="hidden" name="username" value="erik" autocomplete="username" />
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-ink mb-1">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          autocomplete="current-password"
+          required
+          class="w-full px-4 py-2.5 rounded-lg border border-cream-dark bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
+          placeholder="Enter password"
+        />
+      </div>
+
+      <div id="error-message" class="text-sm text-red-600 hidden"></div>
+
+      <button
+        type="submit"
+        class="w-full px-5 py-2.5 bg-ink text-cream rounded-lg font-semibold text-sm hover:bg-warm transition-colors"
+      >
+        Log in
+      </button>
+    </form>
+  </section>
+
+  <script>
+    const form = document.getElementById('login-form') as HTMLFormElement;
+    const errorDiv = document.getElementById('error-message') as HTMLDivElement;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorDiv.classList.add('hidden');
+
+      const password = (form.querySelector('#password') as HTMLInputElement).value;
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password }),
+        });
+
+        if (res.ok) {
+          const params = new URLSearchParams(window.location.search);
+          window.location.href = params.get('redirect') || '/studio';
+        } else {
+          const data = await res.json();
+          errorDiv.textContent = data.error || 'Invalid password.';
+          errorDiv.classList.remove('hidden');
+        }
+      } catch {
+        errorDiv.textContent = 'Something went wrong. Please try again.';
+        errorDiv.classList.remove('hidden');
+      }
+    });
+  </script>
+</Layout>

@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro'
+---
+
+<Layout title="Studio — Erik Knuppel" description="Art, gaming sessions, and creative work.">
+  <section class="max-w-2xl mx-auto px-6 py-20">
+    <div class="flex items-baseline justify-between mb-8">
+      <h1 class="font-heading text-4xl md:text-5xl font-black leading-tight">
+        Studio
+      </h1>
+      <a href="/api/logout" class="text-sm text-earth hover:text-ink transition-colors">Log out</a>
+    </div>
+    <p class="text-lg text-ink-light leading-relaxed mb-12">
+      Art, gaming sessions, and creative work. This is the private corner.
+    </p>
+
+    <div class="border-t border-cream-dark pt-8">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="p-6 bg-cream-dark rounded-xl">
+          <h2 class="font-heading text-xl font-bold mb-2">Art</h2>
+          <p class="text-sm text-ink-light">Coming soon.</p>
+        </div>
+        <div class="p-6 bg-cream-dark rounded-xl">
+          <h2 class="font-heading text-xl font-bold mb-2">Gaming Sessions</h2>
+          <p class="text-sm text-ink-light">Coming soon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
