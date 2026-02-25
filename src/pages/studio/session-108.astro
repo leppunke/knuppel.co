@@ -1,0 +1,75 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+const images = [
+  { src: "/studio/session-108/01-hold-monster-quad-crit.png", title: "Hold Monster + Quad Crit", caption: "Sundr's golden arcane chains paralyze the minotaur skeleton while Kiet unleashes four critical hits, shattering it into bone meal." },
+  { src: "/studio/session-108/02-moonbeam-bowling.png", title: "Moonbeam Bowling", caption: "Golden drags a column of moonlight through a line of ghouls like an eraser across a chalkboard. Virgil bonks the survivors back into the beam." },
+  { src: "/studio/session-108/03-virgil-sludge-slide.png", title: "Virgil's Sludge Slide", caption: "Frost Giant strength potion coursing through him, Virgil slides fully submerged through the sewage — somehow passing underneath a giant toad." },
+  { src: "/studio/session-108/04-kiet-portcullis.png", title: "Kiet Impaled by the Portcullis", caption: "Athletics check: zero. The spiked portcullis slams down on Kiet's body for 36 damage. He holds it open anyway while the party crawls through." },
+  { src: "/studio/session-108/05-sundr-radiant-fireball.png", title: "Sundr's Radiant Fireball", caption: "Inner Radiance blazing, Sundr hurls a transmuted fireball — fire converted to pure radiant energy — into the necrotic sludge elemental. 50+ damage." },
+  { src: "/studio/session-108/06-kiet-inside-sludge.png", title: "Kiet Inside the Sludge Elemental", caption: "Grappled, restrained, suffocating inside the necrotic ooze. Kiet stabs his way out from the inside. 'The soup tastes worse.'" },
+  { src: "/studio/session-108/07-ghoul-army-reveal.png", title: "The Ghoul Army Reveal", caption: "The party emerges on the underside of the Radiant Citadel to find hundreds of ghouls feasting — an army waiting to assault the city from below." },
+]
+---
+
+<Layout title="Session 108 — Tales of the Radiant Citadel" description="D&D session recap: sewers, skeletons, sludge, and a ghoul army reveal.">
+  <section class="max-w-3xl mx-auto px-6 py-20">
+    <a href="/studio" class="text-sm text-earth hover:text-ink transition-colors mb-6 inline-block">&larr; Studio</a>
+
+    <h1 class="font-heading text-3xl md:text-4xl font-black leading-tight mb-2">
+      Session 108
+    </h1>
+    <p class="text-sm text-earth mb-1">Tales of the Radiant Citadel &middot; February 24, 2026</p>
+    <p class="text-sm text-ink-light mb-8">Arc: Crimson Rasp / Citadel Underworld</p>
+
+    <div class="prose-section text-ink-light leading-relaxed mb-12 space-y-4">
+      <p>
+        The party continued its pursuit of Nak Horizon through the sewer system, battling a minotaur skeleton and a necrotic sludge elemental while navigating magically sealed gates, sewage currents, and a massive disposal drain.
+      </p>
+      <p>
+        The session ended on a jaw-dropping cliffhanger: after descending through the drain, the party emerged on the <em>underside</em> of the Radiant Citadel to discover hundreds of ghouls feasting on delivered meat — an army positioned to assault the city from below.
+      </p>
+    </div>
+
+    <h2 class="font-heading text-2xl font-bold mb-2">Highlights</h2>
+    <ul class="text-sm text-ink-light leading-relaxed space-y-2 mb-12 list-disc list-inside">
+      <li><strong class="text-ink">Hold Monster + Quad Crit</strong> — Sundr paralyzed the minotaur skeleton; Kiet landed four consecutive critical hits, reducing it to bone meal in a single turn</li>
+      <li><strong class="text-ink">Moonbeam Bowling</strong> — Golden dragged a moonbeam through a line of ghouls while Virgil bonked survivors back into the light</li>
+      <li><strong class="text-ink">Virgil's Sludge Slide</strong> — Frost Giant strength potion, fully submerged, sliding underneath a giant toad. Ten extra squares of pure sewer surfing</li>
+      <li><strong class="text-ink">Kiet vs. the Portcullis</strong> — Rolled a zero on athletics. Spiked gate slammed down for 36 damage. Held it open with his body anyway</li>
+      <li><strong class="text-ink">Radiant Fireball</strong> — Sundr transmuted fire to radiant damage, activated Celestial Revelation, and hit the necrotic sludge elemental for 50+</li>
+      <li><strong class="text-ink">Kiet Inside the Ooze</strong> — Grappled, restrained, suffocating. Stabbed his way out from the inside</li>
+      <li><strong class="text-ink">The Cliffhanger</strong> — The party descended through the drain to find an army of hundreds of ghouls on the underside of the Citadel</li>
+    </ul>
+
+    <h2 class="font-heading text-2xl font-bold mb-6">Art</h2>
+    <div class="space-y-10">
+      {images.map((img) => (
+        <figure>
+          <img
+            src={img.src}
+            alt={img.title}
+            class="w-full rounded-xl shadow-lg"
+            loading="lazy"
+          />
+          <figcaption class="mt-3">
+            <span class="font-semibold text-ink text-sm">{img.title}</span>
+            <p class="text-sm text-ink-light mt-1">{img.caption}</p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <div class="border-t border-cream-dark mt-16 pt-8">
+      <h2 class="font-heading text-xl font-bold mb-3">Party</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+        <div><span class="font-semibold text-ink">Sundr</span> <span class="text-ink-light">(Erik) — Aasimar Sorcerer</span></div>
+        <div><span class="font-semibold text-ink">Virgil</span> <span class="text-ink-light">(Jonas) — Barbarian</span></div>
+        <div><span class="font-semibold text-ink">Haru</span> <span class="text-ink-light">(Max) — Paladin/Bard</span></div>
+        <div><span class="font-semibold text-ink">Golden</span> <span class="text-ink-light">(Hunterleigh) — Druid</span></div>
+        <div><span class="font-semibold text-ink">Kiet</span> <span class="text-ink-light">(Kyle) — Fighter</span></div>
+        <div><span class="font-semibold text-ink">Sam</span> <span class="text-ink-light">— DM</span></div>
+      </div>
+    </div>
+  </section>
+</Layout>
