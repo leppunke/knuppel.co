@@ -1,0 +1,115 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+const images = [
+  {
+    "src": "/studio/session-111/01-arrival-at-bluetspur.png",
+    "title": "Arrival at Bluetspur",
+    "caption": "A party of four adventurers standing at the edge of a gray, ruined wasteland. Sulfurous rivers cut through cracked blackened earth."
+  },
+  {
+    "src": "/studio/session-111/02-the-fish-folk-seer-and-the-prophecy-tablet.png",
+    "title": "The Fish-Folk Seer and the Prophecy Tablet",
+    "caption": "A fish-like humanoid with an expressive mouth taking up half its face, standing in a carved mountain dwelling. It holds a stone tablet covered in ancient script, presenting it to a group of adventurers."
+  },
+  {
+    "src": "/studio/session-111/03-virgil-s-honor-duel.png",
+    "title": "Virgil's Honor Duel",
+    "caption": "A massive goliath barbarian headbutting the fist of a 10-foot-tall translucent humanoid guardian, its internal organs visible through its skin, its jaw distending. The goliath is raging, stone-skinned, absorbing the blow with a savage grin."
+  },
+  {
+    "src": "/studio/session-111/04-the-sealed-basement-skeletons-embracing.png",
+    "title": "The Sealed Basement — Skeletons Embracing",
+    "caption": "A pile of ancient humanoid skeletons in a sealed stone basement, huddled together in a final embrace. Dust and debris everywhere."
+  },
+  {
+    "src": "/studio/session-111/05-bahamut-s-whisper.png",
+    "title": "Bahamut's Whisper",
+    "caption": "Close-up of a small kobold paladin holding a platinum dragon talisman to his chest, eyes closed, tears forming. Behind him, a ghostly translucent image of a massive platinum dragon, head bowed in sorrow, fills the chamber — enormous but fading, more memory than presence."
+  },
+  {
+    "src": "/studio/session-111/06-the-intellect-devourer-at-the-pit.png",
+    "title": "The Intellect Devourer at the Pit",
+    "caption": "A dog-sized brain creature standing on four legs at the edge of a massive gaping pit in the earth. Its surface is wrinkled and glistening, disturbingly organic."
+  },
+  {
+    "src": "/studio/session-111/07-the-mind-flayer-cavern.png",
+    "title": "The Mind Flayer Cavern",
+    "caption": "A vast underground cavern seen from above — four adventurers on a flying carpet descending into a space filled with dozens of mind flayers floating in the air like bats, tentacled faces hanging from stalactites and drifting in midair. The cavern is enormous, lit by bioluminescent fungal growths."
+  },
+  {
+    "src": "/studio/session-111/08-the-elder-brain-dragon-steps-into-the-light.png",
+    "title": "The Elder Brain Dragon Steps Into the Light",
+    "caption": "A GARGANTUAN Elder Brain Dragon emerging from shadow in an underground cavern — a dragon whose skull has been replaced or merged with a massive pulsating brain, tentacles hanging from its jaw, wings spread wide. It towers over four tiny adventurers on a flying carpet."
+  },
+  {
+    "src": "/studio/session-111/09-twelve-recognizes-home.png",
+    "title": "Twelve Recognizes Home",
+    "caption": "A small cranium rat with a pulsing multicolored brain sitting in the doorway of a tiny rat-sized door built into the side of an ancient stone building. The door is clearly a later addition — the building is human-scale but the door is rat-scale."
+  }
+]
+---
+
+<Layout title="Session 111 — Tales of the Radiant Citadel" description="The party arrived at Bluetspur and found a catastrophically damaged world — sulfurous rivers, crystal eruptions, perpetual darkness, and pervasive radiatio">
+  <section class="max-w-3xl mx-auto px-6 py-20">
+    <a href="/studio" class="text-sm text-earth hover:text-ink transition-colors mb-6 inline-block">&larr; Studio</a>
+
+    <h1 class="font-heading text-3xl md:text-4xl font-black leading-tight mb-2">
+      Session 111
+    </h1>
+    <p class="text-sm text-earth mb-1">Tales of the Radiant Citadel &middot; April 21, 2026</p>
+    <p class="text-sm text-ink-light mb-8">Bluetspur Expedition</p>
+
+    <div class="prose-section text-ink-light leading-relaxed mb-12 space-y-4">
+      <p>
+        The party arrived at Bluetspur and found a catastrophically damaged world — sulfurous rivers, crystal eruptions, perpetual darkness, and pervasive radiation that poisons visitors at the cellular level (4d6 poison damage per day on failed saves, reduces max HP). They met evolved fish-like humanoid inhabitants led by a seer who produced prophecy tablets describing the Woodland Rollers as both salvation and destruction — in a &quot;bad&quot; timeline, the party channels a dead god's power to summon the **Pale Knight**, a demon goddess who conquers the multiverse. Virgil resolved a tense confrontation over Twelve with an honor duel. The party explored an ancient ruined city with rat-sized doors added to every building — Twelve's confirmed homeland. In a sealed basement, they found human skeletons (the first humans in 111 sessions of campaign) huddled together at the end, one clutching a platinum Bahamut talisman. Haru's Divine Sense returned a whisper: **&quot;I could not save these people from their folly.&quot;** Following intellect devourer tracks to a gaping pit, they descended into a cavern teeming with dozens of floating mind flayers — and met the **High Master**, a gargantuan **Elder Brain Dragon** (CR 22) who claims to have traveled back in time to prevent the Pale Knight summoning. The session ended on a cliffhanger: the dragon proposes an alliance to defeat both Pazuzu and the Pale Knight, and steps into the light.
+      </p>
+    </div>
+
+    <h2 class="font-heading text-2xl font-bold mb-2">Highlights</h2>
+    <ul class="text-sm text-ink-light leading-relaxed space-y-2 mb-12 list-disc list-inside">
+      <li><strong class="text-ink">Cold Open — Departure from the Radiant Citadel</strong> — Jonas absent; Kiet guards the Concordant Jewel off-screen</li>
+      <li><strong class="text-ink">Arrival at Bluetspur</strong> — Sam: &quot;You can see a gray and ruined wasteland... sulfurous rivers sweeping in detergent seas. Crystals erupting from the blackened earth, cracks like gaping wounds leading down, down one knows not where.&quot;</li>
+      <li><strong class="text-ink">The Radiation</strong> — Constitution saving throws on arrival — all pass</li>
+      <li><strong class="text-ink">Toven's Commune with Nature</strong> — Toven upcasts Detect Magic first — faint evocation aura everywhere, blanketing the entire land</li>
+      <li><strong class="text-ink">The Fish-Like Humanoids — The Seer</strong> — Approach a settlement of evolved aberrant fish-like humanoids — originally humanoid, now classified as aberrations after eons of radiation adaptation</li>
+      <li><strong class="text-ink">The Prophecy</strong> — The tablet describes the Woodland Rollers channeling **a dead god's power into an artifact**, summoning the **Pale Knight** to stop Pazuzu</li>
+      <li><strong class="text-ink">Confrontation Over Twelve</strong> — The seer demands: &quot;Give us that rat.&quot; Claims rats are servants of their enslavers (the &quot;ancestor descendants&quot;)</li>
+      <li><strong class="text-ink">The Ruined City</strong> — Ancient city, thousands of years old. Human-sized buildings — but **almost every building has a small rat-sized door added post-construction**</li>
+      <li><strong class="text-ink">The Sealed Basement — Bahamut's Failure</strong> — Basement with a sealed stone door — **no rat door** (sealed before the rats came)</li>
+      <li><strong class="text-ink">The Intellect Devourer</strong> — Following quadrupedal talon tracks (dog-sized, not rat-sized) to a gaping pit</li>
+      <li><strong class="text-ink">The Descent — Elder Brain Dragon</strong> — Party descends into the pit on the flying carpet. Radiation fades but **psychic pressure intensifies**</li>
+      <li><strong class="text-ink">The High Master's Proposition</strong> — The Elder Brain Dragon on time travel: &quot;The people of this world were fascinated with time, its flow, its manipulation. They were able to set up a signal. And we, from your future, traveled back to this place in order to prevent a happening.&quot;</li>
+    </ul>
+
+    <h2 class="font-heading text-2xl font-bold mb-6">Art</h2>
+    <div class="space-y-10">
+      {images.map((img) => (
+        <figure>
+          <img
+            src={img.src}
+            alt={img.title}
+            class="w-full rounded-xl shadow-lg"
+            loading="lazy"
+          />
+          <figcaption class="mt-3">
+            <span class="font-semibold text-ink text-sm">{img.title}</span>
+            <p class="text-sm text-ink-light mt-1">{img.caption}</p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <div class="border-t border-cream-dark mt-16 pt-8">
+      <h2 class="font-heading text-xl font-bold mb-3">Party</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+        <div><span class="font-semibold text-ink">Sundr</span> <span class="text-ink-light">(Erik) — Aasimar Sorcerer</span></div>
+        <div><span class="font-semibold text-ink">Kiet</span> <span class="text-ink-light">(Jonas) — Dragonborn Fighter</span></div>
+        <div><span class="font-semibold text-ink">Virgil Gemnar</span> <span class="text-ink-light">(Kyle) — Goliath Barbarian</span></div>
+        <div><span class="font-semibold text-ink">Toven</span> <span class="text-ink-light">(Max) — Druid</span></div>
+        <div><span class="font-semibold text-ink">Haru</span> <span class="text-ink-light">(Hunter) — Kobold Paladin</span></div>
+        <div><span class="font-semibold text-ink">—</span> <span class="text-ink-light">(Sam (DM))</span></div>
+      </div>
+    </div>
+  </section>
+</Layout>
