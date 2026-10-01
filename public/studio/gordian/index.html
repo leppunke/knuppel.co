@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GORDIAN — Origin</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Alegreya:ital,wght@0,400;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /* ============================================================
+     STAGE
+  ============================================================ */
+  #stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+  }
+
+  /* Cinematic letterbox */
+  .bar {
+    position: absolute;
+    left: 0; right: 0;
+    height: 9vh;
+    background: #000;
+    z-index: 30;
+  }
+  .bar-top    { top: 0; }
+  .bar-bottom { bottom: 0; }
+
+  /* ============================================================
+     SCENES
+  ============================================================ */
+  .scene {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  /* background-div replaces img — background-position percentages map directly:
+     X: 0%=left edge, 100%=right edge  |  Y: 0%=top, 100%=bottom              */
+  .scene-img {
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    will-change: background-position, background-size;
+  }
+
+  /* Ken Burns — all via background-size + background-position */
+  @keyframes kbZoomIn {
+    from { background-size: 118% auto; background-position: center center; }
+    to   { background-size: 108% auto; background-position: center center; }
+  }
+  @keyframes kbZoomOut {
+    from { background-size: 108% auto; background-position: center center; }
+    to   { background-size: 124% auto; background-position: center center; }
+  }
+  @keyframes kbPanLeft {
+    from { background-size: 114% auto; background-position: 62% center; }
+    to   { background-size: 114% auto; background-position: 36% center; }
+  }
+  /* Portrait: Y 85% = lower body/belt visible. Y 0% = top of image = skull in raised hand. */
+  @keyframes kbPanUp {
+    from { background-size: 115% auto; background-position: center 85%; }
+    to   { background-size: 115% auto; background-position: center 0%;  }
+  }
+  /* Wide → push in on Gordian's face: start full image, drift right+up and zoom */
+  @keyframes kbWideToFace {
+    from { background-size: 100% auto; background-position: center center; }
+    to   { background-size: 195% auto; background-position: 88% 8%;       }
+  }
+
+  .kb-zoom-in      { animation: kbZoomIn      linear forwards; }
+  .kb-zoom-out     { animation: kbZoomOut     linear forwards; }
+  .kb-pan-left     { animation: kbPanLeft     linear forwards; }
+  .kb-pan-up       { animation: kbPanUp       linear forwards; }
+  .kb-wide-to-face { animation: kbWideToFace  linear forwards; }
+
+  /* Cinematic grade */
+  .grade {
+    position: absolute;
+    inset: 0;
+    background: rgba(6, 7, 12, 0.30);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Vignette */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.82) 100%);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  /* ============================================================
+     CAPTIONS
+  ============================================================ */
+  .caption {
+    position: absolute;
+    left: 8vw;
+    right: 8vw;
+    bottom: 16vh;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .cap-line {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: clamp(0.85rem, 1.8vw, 1.2rem);
+    color: transparent;
+    letter-spacing: 0.28em;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+    margin-bottom: 0.35em;
+    transition: color 0.9s ease;
+    text-transform: uppercase;
+  }
+
+  .cap-line.strong { font-weight: 700; letter-spacing: 0.22em; }
+  .cap-line.on     { color: rgba(214, 204, 182, 0.92); }
+  .cap-line.off    { color: transparent; }
+
+  /* ============================================================
+     TITLE CARD (final scene)
+  ============================================================ */
+  .title-card {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .title-main {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 11vw, 8rem);
+    color: transparent;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: color 2.2s ease, text-shadow 2.2s ease;
+    text-shadow: 0 0 0px rgba(184,120,64,0);
+  }
+  .title-main.on {
+    color: rgba(212, 160, 96, 0.96);
+    text-shadow: 0 0 80px rgba(184,120,64,0.45), 0 0 200px rgba(184,120,64,0.15);
+  }
+
+  .title-divider {
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184,120,64,0.7), transparent);
+    margin: 1.2rem 0 1.2rem;
+    transition: width 1.5s ease 0.5s;
+  }
+  .title-divider.on { width: min(300px, 40vw); }
+
+  .title-sub {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+    color: transparent;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    transition: color 1.8s ease 1s;
+  }
+  .title-sub.on { color: rgba(184, 120, 64, 0.8); }
+
+  .title-campaign {
+    font-family: 'Alegreya', serif;
+    font-style: italic;
+    font-size: clamp(0.6rem, 1.2vw, 0.78rem);
+    color: transparent;
+    letter-spacing: 0.22em;
+    margin-top: 0.8rem;
+    transition: color 1.8s ease 1.5s;
+  }
+  .title-campaign.on { color: rgba(170, 150, 110, 0.5); }
+
+  /* ============================================================
+     TAG CARD (final slate)
+  ============================================================ */
+  .tag-card {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .tag-text {
+    font-family: 'Alegreya', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.4vw, 1.5rem);
+    color: transparent;
+    letter-spacing: 0.08em;
+    transition: color 2s ease;
+  }
+  .tag-text.on { color: rgba(255, 255, 255, 0.88); }
+
+  /* ============================================================
+     FADE OVERLAY
+  ============================================================ */
+  #fade {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    opacity: 1;
+    z-index: 20;
+    pointer-events: none;
+    transition: opacity 1.1s ease;
+  }
+  #fade.clear { opacity: 0; }
+  #fade.dark  { opacity: 1; }
+
+  /* ============================================================
+     START SCREEN
+  ============================================================ */
+  #start {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 40;
+    transition: opacity 1s ease;
+  }
+  #start.gone { opacity: 0; pointer-events: none; }
+
+  .start-teaser {
+    font-family: 'Alegreya', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: #8a8880;
+    letter-spacing: 0.18em;
+    margin-bottom: 2.8rem;
+  }
+
+  .start-name {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: #b87840;
+    letter-spacing: 0.22em;
+    margin-bottom: 0.4rem;
+  }
+
+  .start-sub {
+    font-family: 'Alegreya', serif;
+    font-style: italic;
+    font-size: clamp(0.75rem, 1.4vw, 0.95rem);
+    color: #5a584e;
+    letter-spacing: 0.2em;
+    margin-bottom: 3.5rem;
+  }
+
+  .play-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #b87840;
+    border: 1px solid #7a5028;
+    background: transparent;
+    padding: 0.85rem 2.8rem;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .play-btn:hover {
+    color: #d4a060;
+    border-color: #b87840;
+    box-shadow: 0 0 24px rgba(184,120,64,0.2);
+  }
+
+  /* ============================================================
+     REPLAY
+  ============================================================ */
+  #replay {
+    position: absolute;
+    bottom: 14vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #5a584e;
+    border: 1px solid #2a2820;
+    background: transparent;
+    padding: 0.6rem 2rem;
+    cursor: pointer;
+    z-index: 35;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.2s ease, color 0.3s, border-color 0.3s;
+  }
+  #replay.on { opacity: 1; pointer-events: all; }
+  #replay:hover { color: #b87840; border-color: #7a5028; }
+</style>
+</head>
+<body>
+
+<audio id="score" src="Gothamlicious.mp3" loop></audio>
+
+<div id="start">
+  <div class="start-teaser">Coming soon. Woodland Rollers, 2026.</div>
+  <button class="play-btn" onclick="play()">&#9654;&ensp;Play</button>
+</div>
+
+<div id="stage">
+  <div class="bar bar-top"></div>
+  <div class="bar bar-bottom"></div>
+  <div id="fade"></div>
+  <button id="replay" onclick="restart()">&#8635;&ensp;Replay</button>
+</div>
+
+<script>
+// ─── Scene data ────────────────────────────────────────────────────────────────
+const SCENES = [
+  {
+    img: 'gordian-trailer-scenes-images/01-yongxing-city.png',
+    kb:  'kb-zoom-in',
+    dur: 5500,
+    lines: [
+      { text: 'A city of perfect order…', delay: 1000, hold: 4000 },
+    ],
+  },
+  {
+    img: 'gordian-trailer-scenes-3-images/01-yongxing-street-level.png',
+    kb:  'kb-zoom-in',
+    dur: 5000,
+    lines: [
+      { text: '…Yongxing.', delay: 800, hold: 4000, strong: true },
+    ],
+  },
+  {
+    img: 'gordian-trailer-scenes-images/02-gordian-serving.png',
+    kb:  'kb-wide-to-face',
+    dur: 9000,
+    lines: [
+      { text: 'Unit 7741‑G.',         delay: 1000, hold: 3200 },
+      { text: 'Built to serve.',           delay: 5200, hold: 3500 },
+    ],
+  },
+  {
+    img: 'gordian-trailer-scenes-2-images/01-contemplation-at-the-window.png',
+    kb:  'kb-zoom-out',
+    dur: 8000,
+    lines: [
+      { text: 'Until his calculations…',   delay: 1000, hold: 3400 },
+      { text: '…told him to rebel.',       delay: 5400, hold: 2400, strong: true },
+    ],
+  },
+  {
+    img: 'gordian-trailer-scenes-2-images/02-into-the-sleeping-chambers.png',
+    kb:  'kb-zoom-in',
+    dur: 7500,
+    lines: [
+      { text: 'The power of life and death, in his unliving hands.', delay: 1500, hold: 5500 },
+    ],
+  },
+  {
+    img: 'gordian-portrait-images/01-gordian-portrait.png',
+    kb:  'kb-pan-up',
+    dur: Infinity,
+    titleScene: true,
+    lines: [],
+  },
+];
+
+const FADE_MS   = 1100;  // fade to/from black
+const INTER_MS  = 200;   // gap between fade-out and next scene start
+
+// ─── State ─────────────────────────────────────────────────────────────────────
+let idx    = -1;
+let timers = [];
+let active = null;   // current scene element
+
+function t(fn, ms) { timers.push(setTimeout(fn, ms)); }
+function clearAll() { timers.forEach(clearTimeout); timers = []; }
+
+// ─── Entry points ──────────────────────────────────────────────────────────────
+function play() {
+  document.getElementById('start').classList.add('gone');
+  const score = document.getElementById('score');
+  score.volume = 0;
+  score.play().catch(() => {});
+  fadeVolume(score, 0, 0.72, 2500);
+  t(nextScene, 900);
+}
+
+function fadeVolume(el, from, to, ms) {
+  const steps = 40;
+  const interval = ms / steps;
+  const delta = (to - from) / steps;
+  let v = from;
+  let i = 0;
+  const tick = setInterval(() => {
+    v = Math.min(Math.max(v + delta, 0), 1);
+    el.volume = v;
+    if (++i >= steps) clearInterval(tick);
+  }, interval);
+  return tick;
+}
+
+function restart() {
+  document.getElementById('replay').classList.remove('on');
+  clearAll();
+  if (active) { active.remove(); active = null; }
+  const score = document.getElementById('score');
+  score.pause();
+  score.currentTime = 0;
+  score.volume = 0.72;
+  score.play().catch(() => {});
+  const fade = document.getElementById('fade');
+  fade.style.transition = 'none';
+  fade.className = 'dark';
+  idx = -1;
+  t(() => {
+    fade.style.transition = '';
+    nextScene();
+  }, 80);
+}
+
+// ─── Scene runner ──────────────────────────────────────────────────────────────
+function nextScene() {
+  idx++;
+  if (idx >= SCENES.length) return;
+
+  const sc    = SCENES[idx];
+  const stage = document.getElementById('stage');
+  const fade  = document.getElementById('fade');
+
+  // Build scene element
+  const el = document.createElement('div');
+  el.className = 'scene';
+
+  // Background div — background-position percentages map to image content directly
+  const bg = document.createElement('div');
+  bg.className = 'scene-img ' + sc.kb;
+  bg.style.animationDuration = ((sc.dur === Infinity ? 14000 : sc.dur + 2000) / 1000) + 's';
+  bg.style.backgroundImage = `url('${sc.img}')`;
+  el.appendChild(bg);
+
+  // Grade + vignette
+  ['grade', 'vignette'].forEach(cls => {
+    const d = document.createElement('div'); d.className = cls; el.appendChild(d);
+  });
+
+  if (sc.titleScene) {
+    buildTitle(el);
+  } else {
+    buildCaptions(el, sc.lines, sc.dur);
+  }
+
+  // Insert before bars
+  stage.insertBefore(el, stage.querySelector('.bar-top'));
+  active = el;
+
+  // Fade in
+  el.style.opacity = '1';
+  fade.classList.remove('dark');
+  fade.classList.add('clear');
+
+  if (sc.dur !== Infinity) {
+    // Schedule fade out → next scene
+    t(() => {
+      fade.classList.remove('clear');
+      fade.classList.add('dark');
+      t(() => {
+        el.remove();
+        active = null;
+        t(nextScene, INTER_MS);
+      }, FADE_MS);
+    }, sc.dur);
+  }
+}
+
+function buildCaptions(el, lines, dur) {
+  const cap = document.createElement('div');
+  cap.className = 'caption';
+
+  lines.forEach(line => {
+    const span = document.createElement('span');
+    span.className = 'cap-line' + (line.strong ? ' strong' : '');
+    span.textContent = line.text;
+    cap.appendChild(span);
+
+    t(() => span.classList.add('on'), line.delay);
+    t(() => { span.classList.remove('on'); span.classList.add('off'); }, line.delay + line.hold);
+  });
+
+  el.appendChild(cap);
+}
+
+function buildTitle(el) {
+  const tc = document.createElement('div');
+  tc.className = 'title-card';
+
+  const main = document.createElement('div');
+  main.className = 'title-main';
+  main.textContent = 'GORDIAN';
+
+  const div = document.createElement('div');
+  div.className = 'title-divider';
+
+  const sub = document.createElement('div');
+  sub.className = 'title-sub';
+  sub.textContent = 'Warforged · Artificer · Alchemist';
+
+  const campaign = document.createElement('div');
+  campaign.className = 'title-campaign';
+  campaign.textContent = 'Tales of the Radiant Citadel';
+
+  tc.appendChild(main);
+  tc.appendChild(div);
+  tc.appendChild(sub);
+  tc.appendChild(campaign);
+  el.appendChild(tc);
+
+  t(() => main.classList.add('on'),     2000);
+  t(() => div.classList.add('on'),      2600);
+  t(() => sub.classList.add('on'),      3200);
+  t(() => campaign.classList.add('on'), 3800);
+
+  // Fade music out as title settles, then show replay
+  t(() => fadeVolume(document.getElementById('score'), 0.72, 0, 4000), 4000);
+  t(() => document.getElementById('replay').classList.add('on'), 8500);
+}
+
+// ─── Preload ───────────────────────────────────────────────────────────────────
+SCENES.forEach(sc => { const i = new Image(); i.src = sc.img; });
+// preload additional trailer assets
+[
+  'gordian-trailer-scenes-images/01-yongxing-city.png',
+  'gordian-trailer-scenes-images/02-gordian-serving.png',
+].forEach(src => { const i = new Image(); i.src = src; });
+</script>
+</body>
+</html>
